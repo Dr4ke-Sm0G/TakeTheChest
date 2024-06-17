@@ -53,7 +53,7 @@ public abstract class PhysicalEntity extends Entity {
     }
 
     /**
-     * Met Ã  jour l'état de l'entité à chaque itération du jeu.
+     * Met Ã  jour l'ï¿½tat de l'entitï¿½ ï¿½ chaque itï¿½ration du jeu.
      *
      * @param environment L'environnement du jeu.
      */
@@ -62,7 +62,7 @@ public abstract class PhysicalEntity extends Entity {
         setLast_shot(getLast_shot() - 1);
         on_ground = false;
 
-     // DÃ©tection de collision avec les blocs horizontaux lors du dÃ©placement horizontal
+        // DÃ©tection de collision avec les blocs horizontaux lors du dÃ©placement horizontal
         if (vx < 0) {
             int scan_x = (int) Math.floor(x);
             int end_x = (int) Math.floor(x + vx);
@@ -91,6 +91,7 @@ public abstract class PhysicalEntity extends Entity {
                 scan_x+=1;
                 for (int i = start_y;i<=end_y;i++){
                     hit = hit || Environment.BLOCK_PROPERTIES.get(environment.getBlock(scan_x,i)).solid();
+            
                 }
             }
             if (hit) {

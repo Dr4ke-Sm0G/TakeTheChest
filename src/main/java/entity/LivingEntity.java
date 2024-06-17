@@ -109,7 +109,9 @@ public class LivingEntity extends PhysicalEntity {
 
     public void addToInventory(Item item, int quantity) {
         inventory.put(item, inventory.getOrDefault(item, 0) + quantity);
+        setHasItem(item.getClass(), true);  
     }
+
     /**
      * Suppression d'un item dans l'inventaire
      */
