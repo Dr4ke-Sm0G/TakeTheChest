@@ -25,7 +25,7 @@ public class Projectile extends Item {
      */
     public Projectile(double x, double y, double vx, double vy, double w, double h, LivingEntity owner) {
         super(x, y, vx, vy, w, h);
-        this.owner = owner;
+        this.owner=owner;
     }
 
     /**
@@ -72,4 +72,13 @@ public class Projectile extends Item {
     protected boolean onHit(LivingEntity livingEntity) {
         return true;
     }
+
+	/**
+	 * Renvoie l'entité qui a tiré la flèche.
+	 *
+	 * @return L'entité propriétaire de la flèche.
+	 */
+	protected LivingEntity shotFrom() {
+		return owner;
+	}
 }

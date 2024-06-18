@@ -49,6 +49,7 @@ public class Environment {
     private ArrayList<Entity> addedEntities;
     private NPC1 NPC;
     private NPC2 NPC2;
+    private Monster monster;
 
     private Player player;
     private Progress gameProgression;
@@ -197,7 +198,7 @@ public class Environment {
     public void generateMonsters(){
     	//Monster(double x, double y,int life, String pathImage) : life=2 -> il est mort après 2 tirs
     	addedEntities.add(new Monster(23,51,2,"living_entities/monster.png"));
-    	addedEntities.add(new MonsterUpgraded(56,46));
+  /*  	addedEntities.add(new MonsterUpgraded(56,46));
     	addedEntities.add(new Monster(75,53,2,"living_entities/monster.png"));
     	addedEntities.add(new Monster(74,58,2,"living_entities/monster.png"));
     	addedEntities.add(new Monster(82,64,2,"living_entities/monster.png"));
@@ -210,7 +211,7 @@ public class Environment {
     	addedEntities.add(new Monster(72,82,2,"living_entities/monster.png"));
     	addedEntities.add(new Monster(78,82,2,"living_entities/monster.png"));
     	addedEntities.add(new Monster(75,84,2,"living_entities/monster.png"));
-    	addedEntities.add(new Monster(115,33,2,"living_entities/monster.png"));
+    	addedEntities.add(new Monster(115,33,2,"living_entities/monster.png"));*/
     }
     
     /**
@@ -223,7 +224,7 @@ public class Environment {
 
     	addedEntities.add(new Item4(12, 51));
     	
-    	//addedEntities.add(new GG(10, 51));
+    	addedEntities.add(new GG(10, 51));
 
 
     //	addedEntities.add(new Shield(13, 51));
@@ -308,6 +309,28 @@ public class Environment {
 		this.NPC2 = npc2;
 		addEntity(npc2);
 	}
+	
+	
+	/**
+     * Retourne le NPC.
+     *
+     * @return Le NPC actuel.
+     */
+    public Monster getmonster() {
+		return monster;
+	}
+
+    /**
+     * Definit le joueur actuel.
+     *
+     * @param player Le joueur a  definir.
+     */
+	public void setMonster(Monster monster) {
+		this.monster = monster;
+	}
+	
+	
+	
 	/**
      * Met a  jour les entites dans l'environnement.
      */

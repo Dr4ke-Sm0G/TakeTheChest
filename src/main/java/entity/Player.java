@@ -11,7 +11,6 @@ import main.java.Environment.Progress;
 import main.java.Input;
 import main.java.entity.projectile.Arrow;
 import main.java.entity.projectile.ArrowUpgraded;
-import main.java.entity.projectile.Projectile;
 import main.java.item.GG;
 import main.java.item.HealPotion;
 import main.java.item.Key;
@@ -19,7 +18,6 @@ import main.java.item.Item1;
 import main.java.item.Item2;
 import main.java.item.Item4;
 import main.java.item.Item;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -46,11 +44,12 @@ public class Player extends LivingEntity {
     private boolean inventoryKeyPressed = false;
     private boolean errorDialogShown = false;
     private boolean messageDialogShown = false;  // Ajoutez cette ligne
-    LivingEntity instance;
     Environment environment;
+    LivingEntity owner;
+    Arrow arrow = new Arrow(0,0,0,owner);
+    
     HealPotion healpotion = new HealPotion(0, 0);
     Key key = new Key(0, 0);
-    Arrow arrow = new Arrow(0, 0, 0, this);
 
     public Player(double x, double y) {
         super(x, y, 30, 1);
@@ -89,6 +88,7 @@ public class Player extends LivingEntity {
             vy = 0;
         }
     }
+    
     void displayInventory(LivingEntity entity,Environment environment) {
         Platform.runLater(() -> {
             Stage inventoryStage = new Stage();
@@ -120,7 +120,7 @@ public class Player extends LivingEntity {
                 itemText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
                 itemBox.getChildren().add(itemText);
                 
-                if (item instanceof HealPotion && entity instanceof Player) {
+                if (item instanceof HealPotion ) {
                     Button useButton = new Button("Use");
                     useButton.setStyle("-fx-font: 22 arial; -fx-base: #5eceae; -fx-background-radius:50; -fx-background-insets: 0;");
                     useButton.setOnAction(event -> {
@@ -130,7 +130,7 @@ public class Player extends LivingEntity {
                     });
                     itemBox.getChildren().add(useButton);
                 }
-                if (item instanceof Item1 && entity instanceof Player) {
+                if (item instanceof Item1 ) {
                     Button useButton = new Button("Use");
                     useButton.setStyle("-fx-font: 22 arial; -fx-base: #5eceae; -fx-background-radius:50; -fx-background-insets: 0;");
                     useButton.setOnAction(event -> {
@@ -139,7 +139,7 @@ public class Player extends LivingEntity {
                     });
                     itemBox.getChildren().add(useButton);
                 }
-                if (item instanceof Item2 && entity instanceof Player) {
+                if (item instanceof Item2 ) {
                     Button useButton = new Button("Use");
                     useButton.setStyle("-fx-font: 22 arial; -fx-base: #5eceae; -fx-background-radius:50; -fx-background-insets: 0;");
                     useButton.setOnAction(event -> {
@@ -148,7 +148,7 @@ public class Player extends LivingEntity {
                     });
                     itemBox.getChildren().add(useButton);
                 }
-                if (item instanceof GG && entity instanceof Player) {
+                if (item instanceof GG) {
                     Button useButton = new Button("Use");
                     useButton.setStyle("-fx-font: 22 arial; -fx-base: #5eceae; -fx-background-radius:50; -fx-background-insets: 0;");
                     useButton.setOnAction(event -> {
@@ -157,10 +157,15 @@ public class Player extends LivingEntity {
                     });
                     itemBox.getChildren().add(useButton);
                 }
-                if (item instanceof Item4 && entity instanceof Player) {
+                if (item instanceof Item4 ) {
                     Button useButton = new Button("Use");
                     useButton.setStyle("-fx-font: 22 arial; -fx-base: #5eceae; -fx-background-radius:50; -fx-background-insets: 0;");
                     useButton.setOnAction(event -> {
+                    	LivingEntity shooter = arrow.shotFrom(); // Récupère l'entité qui a tiré la flèche
+                        if (onHit(this) && shooter instanceof Monster) {
+                            Monster monster = (Monster) shooter; // Cast l'entité en Monster
+                            monster.destroy(); // Appelle la méthode destroy sur le monstre
+                        }
                         inventoryStage.close();
                     });
                     itemBox.getChildren().add(useButton);
@@ -587,5 +592,7 @@ public void addToInventory(Item item, int quantity) {
     public void setMonsterIsDead(boolean monsterIsDead) {
         this.monsterIsDead = monsterIsDead;
     }
-    
+    protected boolean onHit(LivingEntity livingEntity) {
+        return true;
+    }
 }

@@ -3,6 +3,7 @@ package main.java.entity;
 import javafx.scene.image.Image;
 import main.java.Environment;
 import main.java.entity.projectile.Arrow;
+
 import java.util.Random;
 
 /**
@@ -36,6 +37,7 @@ public class Monster extends LivingEntity {
         // V�rifiez si l'inventaire contient une fl�che
 
         if (hasItem(Arrow.class)) {
+
 	        if (getLast_shot() <= 0) {
 	            setLast_shot(60);
 	            double dir = new Random().nextInt(2);
@@ -46,15 +48,23 @@ public class Monster extends LivingEntity {
 	                environment.addEntity(new Arrow(x + 3 * w / 2, y + 2 * h / 3, 0.5, this));
 	            }
 	        }
-        }
-    }
+			}
+        }        	
+        
+        
+		
     public double getLife() {
-    	
     	return life;
     }
+    
     public void setLife(int life) {
         this.life = life;
     }
+   public Monster getMonster() {
+	   return this;
+	   
+   }
+   
     /**
      * Renvoie l'image associ�e au monstre.
      *
@@ -64,4 +74,14 @@ public class Monster extends LivingEntity {
     public Image getImage() {
         return image;
     }
+    /**
+     * Méthode invoquée lorsqu'une entité est touchée par le projectile.
+     *
+     * @param livingEntity L'entité touchée par le projectile.
+     * @return Vrai si l'entité a été touchée par le projectile, faux sinon.
+     */
+    protected boolean onHit(LivingEntity livingEntity) {
+        return true;
+    }
+    
 }

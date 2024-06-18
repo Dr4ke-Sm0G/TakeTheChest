@@ -33,6 +33,7 @@ public class Arrow extends Projectile {
 	 *
 	 * @return L'entité propriétaire de la flèche.
 	 */
+	@Override
 	public LivingEntity shotFrom() {
 		return owner;
 	}

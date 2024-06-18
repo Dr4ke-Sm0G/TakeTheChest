@@ -56,9 +56,7 @@ public class LivingEntity extends PhysicalEntity {
         if (this instanceof Player) {
             this.addToInventory(new Arrow(0, 0, 0, this),1);
 
-
         } else if (this instanceof NPC1) {
-            this.addToInventory(new Arrow(0, 0, 0, this),1);
             this.addToInventory(new HealPotion(0, 0),1);
             this.addToInventory(new HealPotion(0, 0),1);
 
@@ -71,7 +69,7 @@ public class LivingEntity extends PhysicalEntity {
 
         } 
         else {
-            this.addToInventory(new Arrow(0, 0, 0, this),1);
+            this.addToInventory(new Arrow(0, 0, 0,this) ,1);
             
         }
         
